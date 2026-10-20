@@ -1,6 +1,6 @@
 # Pulse — Harbour
 
-React build of the **Pulse v5 Harbour** design from Claude Design, the operations dashboard mocked up for Kilbride Group.
+React build of the **Pulse v5 Harbour** design, re-skinned as a front-end demo for **theGardener.ie** (Kevin Whitty). Demo data only: no live payments, invoices, calendar writes or integrations.
 
 Every page, theme and interaction from the design is here. Screens were checked against the original mockup and match pixel for pixel at 1440×900 and 1024×720.
 
@@ -20,7 +20,9 @@ npm run build      # type-check + production build into dist/
 | Overlays: ⌘K palette, agent studio, Helios mini chat, work viewer, new record, background gallery | `src/views/overlays/` |
 | App frame: sidebar, top bar, notifications | `src/views/AppShell.tsx` |
 | State and behaviour | `src/logic/PulseLogic.js` |
-| Demo data (Kilbride Group) | `src/logic/data.js` |
+| Template copy and labels | `src/logic/data.js` |
+| theGardener.ie fixtures, store, selectors, answers | `src/gardener/` |
+| Schedule, Charge Desk, Properties, Contracts, Dashboard tabs, Customers, Team | `src/gardener/pages/` |
 | Agent avatar | `src/components/AgentFace.tsx` |
 | Theme tokens (Harbour, light and 11 more), animations | `src/styles/pulse.css` |
 
@@ -55,3 +57,11 @@ This regenerates:
 ## Fixed from the mockup
 
 In the mockup, the work viewer's wrapper `<div>` was never closed. As a result, the ⌘K palette, agent studio, new record dialog and background gallery could only appear while the work viewer was open. They now open on their own. The fix is applied in `tools/import-design.mjs`.
+
+## theGardener.ie demo
+
+- Demo clock: Mon 19 Oct 2026, 17:15, Europe/Dublin. All money is integer euro cents.
+- One shared store (`src/gardener/store.ts`) and derived selectors (`selectors.ts`) feed every page, the Home chat and the agents, so totals never drift.
+- Completion is an explicit crew note or a named confirmation. This is a demo assumption; Google Calendar has no completion field.
+- Every fee, price, name (except Kevin), recurrence and count is synthetic. Legal entity, address and official palette are unverified.
+- Reset demo (Charge Desk, Settings, ⌘K) restores the starting story: 7 ready items, €1,215.

@@ -91,12 +91,51 @@ export default function HomeWidgetRail({ v }: Props) {
             </div>
           </>
         )}
+        {v.show?.brief && (
+          <>
+            <div style={{"background":"var(--surface)","border":"1px solid var(--accent-line)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","padding":"18px 20px 16px"}}>
+              <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
+                <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
+                  {"Briefing"}
+                </div>
+                <span style={{"fontFamily":"var(--mono)","fontSize":"9.5px","letterSpacing":"0.1em","color":"var(--accent)"}}>
+                  {txt(v.briefing?.stamp)}
+                </span>
+                {v.widgetEdit && (
+                  <>
+                    <button className="ixd" onClick={v.removeBrief} title="Remove widget" style={{"width":"24px","height":"24px","flex":"none","border":"1px solid var(--border)","borderRadius":"8px","background":"var(--surface-2)","color":"var(--dim)","cursor":"pointer","display":"flex","alignItems":"center","justifyContent":"center"}}>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                        <path d="M6 6l12 12 M18 6 6 18" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+              </div>
+              <div style={{"fontSize":"13px","lineHeight":"1.6","color":"var(--body)","marginTop":"10px"}}>
+                {txt(v.briefing?.text)}
+              </div>
+              <button className="ixa" onClick={v.briefing?.open} style={{"marginTop":"12px","height":"30px","padding":"0 12px","background":"var(--surface-2)","border":"1px solid var(--border)","borderRadius":"var(--r-ctl,9px)","fontSize":"12px","color":"var(--ink)","cursor":"pointer"}}>
+                {txt(v.briefing?.openLabel)}
+              </button>
+              <div style={{"marginTop":"12px","paddingTop":"10px","borderTop":"1px solid var(--border)"}}>
+                <div style={{"fontFamily":"var(--mono)","fontSize":"9px","letterSpacing":"0.12em","color":"var(--faint)"}}>
+                  {"08:00 · MORNING SNAPSHOT"}
+                </div>
+                <div style={{"fontSize":"12px","lineHeight":"1.55","color":"var(--dim)","marginTop":"5px"}}>
+                  {txt(v.briefing?.morning)}
+                  {" "}
+                  {txt(v.briefing?.morningNote)}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
         {v.show?.inbox && (
           <>
             <div style={{"background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","transition":"transform .28s var(--ease),border-color .24s var(--ease),box-shadow .28s var(--ease)","padding":"20px 22px 10px"}}>
               <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
                 <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
-                  {"Action inbox"}
+                  {"Needs a decision"}
                 </div>
                 <span style={{"height":"24px","display":"flex","alignItems":"center","padding":"0 10px","background":"var(--surface-2)","border":"1px solid var(--border)","borderRadius":"var(--r-sm,9px)","fontFamily":"var(--mono)","fontSize":"11px","color":"var(--dim)"}}>
                   {txt(v.inboxCount)}
@@ -133,7 +172,7 @@ export default function HomeWidgetRail({ v }: Props) {
                 {v.inboxEmpty && (
                   <>
                     <div style={{"padding":"20px 0 24px","borderTop":"1px solid var(--border)","textAlign":"center","fontSize":"12.5px","color":"var(--dim)"}}>
-                      {"Nothing needs you."}
+                      {"Nothing needs a decision."}
                     </div>
                   </>
                 )}
@@ -225,7 +264,7 @@ export default function HomeWidgetRail({ v }: Props) {
             <div style={{"background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","transition":"transform .28s var(--ease),border-color .24s var(--ease),box-shadow .28s var(--ease)","padding":"20px 22px 10px"}}>
               <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
                 <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
-                  {"Site visits this week"}
+                  {"Today's visits"}
                 </div>
                 {v.widgetEdit && (
                   <>
@@ -240,7 +279,7 @@ export default function HomeWidgetRail({ v }: Props) {
               <div style={{"marginTop":"6px"}}>
                 {arr(v.visitWidget).map((v: any, i21: number) => (
                   <Fragment key={i21}>
-                    <div style={{"display":"flex","alignItems":"center","gap":"11px","padding":"11px 0","borderTop":"1px solid var(--border)"}}>
+                    <div onClick={v?.open} style={{"display":"flex","alignItems":"center","gap":"11px","padding":"11px 0","borderTop":"1px solid var(--border)","cursor":"pointer"}}>
                       <span style={css(cat("width:7px;height:7px;border-radius:2px;flex:none;background:", v?.dot))} />
                       <span style={{"flex":"1","minWidth":"0","fontSize":"12.5px","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}}>
                         {txt(v?.title)}

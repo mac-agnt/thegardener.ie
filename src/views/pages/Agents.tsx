@@ -199,6 +199,15 @@ export default function Agents({ v }: Props) {
                             </>
                           )}
                         </div>
+                        {m?.hasActions && (
+                          <div style={{"display":"flex","flexWrap":"wrap","gap":"6px","marginTop":"4px"}}>
+                            {arr(m?.actions).map((a: any, ia: number) => (
+                              <button key={ia} className="ixa" onClick={a?.run} style={{"height":"28px","padding":"0 11px","background":"var(--surface-2)","border":"1px solid var(--border)","borderRadius":"var(--r-ctl,9px)","fontSize":"12px","color":"var(--ink)","cursor":"pointer"}}>
+                                {txt(a?.label)}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </>
                   )}

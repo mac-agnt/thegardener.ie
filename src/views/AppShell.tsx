@@ -10,7 +10,6 @@ import RecordsFiles from "./pages/RecordsFiles";
 import RecordsOntology from "./pages/RecordsOntology";
 import Activity from "./pages/Activity";
 import Settings from "./pages/Settings";
-import Dashboard from "./pages/Dashboard";
 import Agents from "./pages/Agents";
 import HeliosMini from "./overlays/HeliosMini";
 import WorkViewer from "./overlays/WorkViewer";
@@ -18,6 +17,14 @@ import AgentStudio from "./overlays/AgentStudio";
 import NewRecordDialog from "./overlays/NewRecordDialog";
 import CommandPalette from "./overlays/CommandPalette";
 import BackgroundGallery from "./overlays/BackgroundGallery";
+import ChargeDesk from "../gardener/pages/ChargeDesk";
+import Schedule from "../gardener/pages/Schedule";
+import Properties from "../gardener/pages/Properties";
+import Contracts from "../gardener/pages/Contracts";
+import GardenerDashboard from "../gardener/pages/Dashboard";
+import { RecordsCustomers, RecordsTeam } from "../gardener/pages/RecordsExtra";
+import GardenerOverlays from "../gardener/Overlays";
+import { DEMO } from "../gardener/fixtures";
 
 type Props = { v: any };
 
@@ -32,13 +39,14 @@ export default function AppShell({ v }: Props) {
         <span style={css(v.railThumbStyle)} />
         <div style={css(cat(v.railRowStyle, "margin-bottom:22px"))}>
           <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"var(--accent-fill,var(--accent))","color":"var(--on-accent)","boxShadow":"var(--accent-glow,none)","cursor":"pointer","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}}>
-            {"K"}
+            {"tG"}
           </button>
           <span style={css(v.brandStyle)}>
-            <span style={{"display":"block","fontSize":"15px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)"}}>
-              {"Kilbride Group"}
+            <span className="g-logo" title="theGardener.ie">
+              <img src="/brand/thegardener-logo-black.png" alt="theGardener.ie" width={132} height={19} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; const f = (e.currentTarget as HTMLImageElement).nextElementSibling as HTMLElement | null; if (f) f.style.display = "inline"; }} />
+              <span className="g-logo-fallback">{"theGardener.ie"}</span>
             </span>
-            <span style={{"display":"block","marginTop":"2px","fontSize":"9px","fontWeight":"500","letterSpacing":".16em","color":"var(--accent)"}}>
+            <span style={{"display":"block","marginTop":"5px","fontSize":"9px","fontWeight":"500","letterSpacing":".16em","color":"var(--accent)"}}>
               {"PULSE · OPERATIONS"}
             </span>
           </span>
@@ -88,6 +96,10 @@ export default function AppShell({ v }: Props) {
           </Fragment>
         ))}
         <div style={{"flex":"1","minHeight":"10px"}} />
+        <div className={v.railOpen ? "g-demo-flag" : "g-demo-flag g-demo-flag--shut"} title={"Demo data · " + DEMO.stamp + " " + DEMO.tz + ". No live payments, invoices or calendar writes."}>
+          <span className="g-demo-dot" />
+          {v.railOpen ? <span>{"Demo data · "}{DEMO.label.replace("Demo snapshot · ", "Snapshot ")}</span> : <span>{"DEMO"}</span>}
+        </div>
         {v.railOpen && (
           <>
             <div style={{"margin":"6px 4px 4px","padding":"18px 18px 16px","background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"18px"}}>
@@ -96,14 +108,14 @@ export default function AppShell({ v }: Props) {
               </div>
               <div style={{"display":"flex","alignItems":"center","gap":"11px","marginTop":"12px"}}>
                 <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"var(--accent-soft)","color":"var(--accent)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
-                  {"MK"}
+                  {"KW"}
                 </div>
                 <div style={{"minWidth":"0"}}>
                   <div style={{"fontSize":"17px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Martin Kilbride"}
+                    {"Kevin Whitty"}
                   </div>
                   <div style={{"fontSize":"12.5px","color":"var(--faint)","marginTop":"2px","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Kilbride Group · Owner"}
+                    {"theGardener.ie · Owner"}
                   </div>
                 </div>
               </div>
@@ -143,14 +155,14 @@ export default function AppShell({ v }: Props) {
             </button>
             <div style={css(cat(v.railRowStyle, "margin-top:10px;padding:12px 10px;border-top:1px solid var(--border)"))}>
               <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"12px","background":"var(--surface-2)","border":"1px solid var(--border)","color":"var(--body)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"12px","fontWeight":"600","cursor":"pointer"}}>
-                {"MK"}
+                {"KW"}
               </div>
               <span style={css(v.brandStyle)}>
                 <span style={{"display":"block","fontSize":"14px","fontWeight":"500","color":"var(--ink)"}}>
-                  {"Martin Kilbride"}
+                  {"Kevin Whitty"}
                 </span>
                 <span style={{"display":"block","marginTop":"2px","fontSize":"12px","color":"var(--faint)"}}>
-                  {"Kilbride Group · Owner"}
+                  {"theGardener.ie · Owner"}
                 </span>
               </span>
             </div>
@@ -311,7 +323,7 @@ export default function AppShell({ v }: Props) {
                         <>
                           <div style={{"minWidth":"0"}}>
                             <div style={{"fontSize":"12px","fontWeight":"500","lineHeight":"1.2","whiteSpace":"nowrap"}}>
-                              {"Martin Kilbride"}
+                              {"Kevin Whitty"}
                             </div>
                             <div style={{"fontSize":"10.5px","color":"var(--faint)","lineHeight":"1.2"}}>
                               {"Owner"}
@@ -353,7 +365,7 @@ export default function AppShell({ v }: Props) {
                 <div style={{"position":"relative","display":"flex","flexDirection":"column","gap":"7px","maxHeight":"min(58vh,440px)","overflowY":"auto","scrollbarWidth":"none"}}>
                   {arr(v.notifications).map((n: any, i3: number) => (
                     <Fragment key={i3}>
-                      <div className="ix9" style={css(n?.cardStyle)}>
+                      <div className="ix9" onClick={() => { v.closeNotifs(); if (n?.go) n.go(); }} style={css(n?.cardStyle)}>
                         <span style={css(n?.washStyle)} />
                         <span style={css(n?.dotStyle)} />
                         <span style={{"position":"relative","flex":"1","minWidth":"0","display":"block"}}>
@@ -376,7 +388,7 @@ export default function AppShell({ v }: Props) {
                 </div>
                 <div style={{"position":"relative","display":"flex","alignItems":"center","gap":"9px","padding":"11px 6px 4px","animation":"notifRow .44s cubic-bezier(.16,1,.3,1) 420ms both"}}>
                   <span style={{"flex":"1","minWidth":"0","fontFamily":"var(--mono)","fontSize":"9px","letterSpacing":"0.1em","color":"var(--faint)","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}}>
-                    {"EVERY EVENT IS WRITTEN TO THE AUDIT LOG"}
+                    {"DEMO DATA · OPEN EXCEPTIONS AND LATEST EVENTS"}
                   </span>
                   <button className="ixa" onClick={v.closeNotifs} style={{"flex":"none","height":"28px","padding":"0 13px","border":"1px solid var(--border)","borderRadius":"var(--r-ctl,10px)","background":"var(--surface-2)","color":"var(--body)","fontSize":"12px","cursor":"pointer","transition":"border-color .2s var(--ease),color .2s var(--ease)"}}>
                     {"Mark all read"}
@@ -452,7 +464,7 @@ export default function AppShell({ v }: Props) {
                           {"No contacts match"}
                         </div>
                         <div style={{"fontSize":"13px","color":"var(--dim)","marginTop":"6px"}}>
-                          {"Try fewer words — it matches on name, role, organisation and tag."}
+                          {"Try fewer words. It matches on name, role, organisation and tag."}
                         </div>
                       </div>
                     </>
@@ -471,6 +483,8 @@ export default function AppShell({ v }: Props) {
           )}
           {v.rec?.isFiles && <RecordsFiles v={v} />}
           {v.rec?.isOntology && <RecordsOntology v={v} />}
+          {v.rec?.isCustomers && <div style={{"padding":"0 22px 26px","maxWidth":"1280px","margin":"0 auto","boxSizing":"border-box"}}><RecordsCustomers /></div>}
+          {v.rec?.isTeam && <div style={{"padding":"0 22px 26px","maxWidth":"1280px","margin":"0 auto","boxSizing":"border-box"}}><RecordsTeam /></div>}
           {v.isActivity && <Activity v={v} />}
           {v.act?.detailOpen && (
             <>
@@ -576,7 +590,11 @@ export default function AppShell({ v }: Props) {
             </>
           )}
           {v.isSettings && <Settings v={v} />}
-          {v.isDashboard && <Dashboard v={v} />}
+          {v.isDashboard && <GardenerDashboard />}
+          {v.isSchedule && <Schedule />}
+          {v.isChargeDesk && <ChargeDesk />}
+          {v.isProperties && <Properties />}
+          {v.isContracts && <Contracts />}
           {v.isAgents && <Agents v={v} />}
         </div>
       </main>
@@ -771,7 +789,7 @@ export default function AppShell({ v }: Props) {
                 <>
                   <div style={{"padding":"8px 24px 4px","animation":"expandIn .3s var(--ease) both"}}>
                     <div style={{"fontFamily":"var(--mono)","fontSize":"9.5px","letterSpacing":"0.13em","color":"var(--faint)","marginTop":"10px"}}>
-                      {"PULSE BUILT THIS — EDIT ANYTHING"}
+                      {"PULSE BUILT THIS · EDIT ANYTHING"}
                     </div>
                     <div style={{"marginTop":"14px"}}>
                       {arr(v.builder?.blocks).map((b: any, i145: number) => (
@@ -820,6 +838,7 @@ export default function AppShell({ v }: Props) {
       {v.newRec?.open && <NewRecordDialog v={v} />}
       {v.paletteOpen && <CommandPalette v={v} />}
       {v.bgGallery?.open && <BackgroundGallery v={v} />}
+      <GardenerOverlays />
     </div>
     </>
   );
